@@ -1,6 +1,5 @@
-import nodemailer from 'nodemailer'
+import nodemailer from 'nodemailer';
 import dotenv from 'dotenv'
-import { defaultMaxListeners } from 'nodemailer/lib/mailer'
 dotenv.config()
 
 const transpoRter = nodemailer.createTransport({

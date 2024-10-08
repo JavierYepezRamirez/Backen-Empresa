@@ -5,8 +5,8 @@ import multer from 'multer'
 import {
   createEmpleado,
   updateEmpleado,
-  deleteEmpleado,
-  getAllEmpelados,
+  delateEmpleado,
+  getAllEmpleados,
   getEmpleadoById,
   getEmpleadoByRol,
   getEmpleadoByUsername
@@ -28,8 +28,10 @@ router.post(
 )
 
 router.put('/update/:id', authMiddleware, upload.single('imagen'), updateEmpleado )
-router.delete('/delete/:id', authMiddleware, deleteEmpleado)
-router.get('/', authMiddleware, getAllEmpelados)
+router.delete('/delete/:id', authMiddleware, delateEmpleado)
+router.get('/', authMiddleware, getAllEmpleados)
 router.get('/empleado/:id', authMiddleware, getEmpleadoById)
 router.get('/rol/:rol', authMiddleware, getEmpleadoByRol)
 router.get('/usuario/:usuario', authMiddleware, getEmpleadoByUsername)
+
+export default router

@@ -1,150 +1,149 @@
-import EmpleadoService from '../services/empleadoService.js'
-import { validationResult } from 'express-validator'
+import EmpleadoService from '../services/empleadoService.js';
+import { validationResult } from 'express-validator';
 
-const EmpleadoService = new EmpleadoService()
+const empleadoService = new EmpleadoService(); // Usa minúsculas para la instancia
 
-const handleValidationErrors = ( req, res, next ) => {
-  const errors = validationResult(req)
-  if(!errors.isEmpty()) {
+const handleValidationErrors = (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
     return res.status(400).json({
-      error: errors.array()
-    })
+      error: errors.array(),
+    });
   }
-  next()
-}
+  next();
+};
 
 const createEmpleado = async (req, res) => {
-  handleValidationErrors(req)
-  try{
-    const empleadoId = await EmpleadoService.
-    createEmpleado(req.body, req.file)
+  handleValidationErrors(req, res);
+  try {
+    const empleadoId = await empleadoService.createEmpleado(req.body, req.file); // usa la instancia correcta
     res.status(201).json({
-      messege: true,
-      empleadoId
-    })
+      message: true,
+      empleadoId,
+    });
   } catch (error) {
     res.status(400).json({
       success: false,
-      message: error.message
-    })
+      message: error.message,
+    });
   }
-}
+};
 
 const updateEmpleado = async (req, res) => {
-  handleValidationErrors(req)
-  try{
-    const id = req.params.id
-    await EmpleadoService.updateEmpleado(id, req.body, req.file)
+  //handleValidationErrors(req, res);
+  try {
+    const id = req.params.id;
+    await empleadoService.updateEmpleado(id, req.body, req.file); // usa la instancia correcta
     res.status(201).json({
-      messege: true
-    })
+      message: true,
+    });
   } catch (error) {
     res.status(400).json({
       success: false,
-      message: error.message
-    })
+      message: error.message,
+    });
   }
-}
+};
 
 const delateEmpleado = async (req, res) => {
-  handleValidationErrors(req)
-  try{
-    const id = req.params.id
-    await empleadoService.delateEmpleado(id)
+  //handleValidationErrors(req, res);
+  try {
+    const id = req.params.id;
+    await empleadoService.delateEmpleado(id); // usa la instancia correcta
     res.status(201).json({
-      messege: true
-    })
+      message: true,
+    });
   } catch (error) {
     res.status(400).json({
       success: false,
-      message: error.message
-    })
+      message: error.message,
+    });
   }
-}
+};
 
 const getAllEmpleados = async (req, res) => {
-  try{
-    const empleados = await EmpleadoService.getAllEmpleados()
+  try {
+    const empleados = await empleadoService.getAllEmpleados(); // usa la instancia correcta
     res.status(201).json({
-      messege: true,
-      empleados
-    })
+      message: true,
+      empleados,
+    });
   } catch (error) {
     res.status(400).json({
       success: false,
-      message: error.message
-    })
+      message: error.message,
+    });
   }
-}
+};
 
-const getEmpleadoById= (req, res) => {
-  handleValidationErrors(req)
-  try{
-    const id = req.params.id
-    const empleado = empleadoService.getEmpleadoById(id)
-    if(!empleado) {
-      res.status(404).json({
+const getEmpleadoById = async (req, res) => {
+  //handleValidationErrors(req, res);
+  try {
+    const id = req.params.id;
+    const empleado = await empleadoService.getEmpleadoById(id); // usa la instancia correcta
+    if (!empleado) {
+      return res.status(404).json({
         success: false,
-        message: 'Empleado not Found💀'
-      })
+        message: 'Empleado not Found💀',
+      });
     }
     res.status(201).json({
-      messege: true,
-      empleado
-    })
+      message: true,
+      empleado,
+    });
   } catch (error) {
     res.status(400).json({
       success: false,
-      message: error.message
-    })
+      message: error.message,
+    });
   }
-}
+};
 
-const getEmpleadoByUsername= (req, res) => {
-  handleValidationErrors(req)
-  try{
-    const username = req.params.username
-    const empleado = empleadoService.getEmpleadoByUsername(username)
-    if(!empleado) {
-      res.status(404).json({
+const getEmpleadoByUsername = async (req, res) => {
+  //handleValidationErrors(req, res);
+  try {
+    const username = req.params.username;
+    const empleado = await empleadoService.getEmpleadoByUsername(username); // usa la instancia correcta
+    if (!empleado) {
+      return res.status(404).json({
         success: false,
-        message: 'Empleado not Found💀'
-      })
+        message: 'Empleado not Found💀',
+      });
     }
     res.status(201).json({
-      messege: true,
-      empleado
-    })
+      message: true,
+      empleado,
+    });
   } catch (error) {
     res.status(400).json({
       success: false,
-      message: error.message
-    })
+      message: error.message,
+    });
   }
-}
+};
 
-const getEmpleadoByRol= (req, res) => {
-  handleValidationErrors(req)
-  try{
-    const rol = req.params.rol
-    const empleado = empleadoService.getEmpleadoByRol(rol)
-    if(!empleado) {
-      res.status(404).json({
+const getEmpleadoByRol = async (req, res) => {
+  //handleValidationErrors(req, res);
+  try {
+    const rol = req.params.rol;
+    const empleado = await empleadoService.getEmpleadoByRol(rol); // usa la instancia correcta
+    if (!empleado) {
+      return res.status(404).json({
         success: false,
-        message: 'Empleado not Found💀'
-      })
+        message: 'Empleado not Found💀',
+      });
     }
     res.status(201).json({
-      messege: true,
-      empleado
-    })
+      message: true,
+      empleado,
+    });
   } catch (error) {
     res.status(400).json({
       success: false,
-      message: error.message
-    })
+      message: error.message,
+    });
   }
-}
+};
 
 export {
   createEmpleado,
@@ -153,5 +152,5 @@ export {
   getAllEmpleados,
   getEmpleadoById,
   getEmpleadoByRol,
-  getEmpleadoByUsername
-}
+  getEmpleadoByUsername,
+};
